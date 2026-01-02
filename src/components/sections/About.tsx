@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Award, Heart, Users, Clock } from "lucide-react";
-import stylistPortrait from "@/assets/stylist-portrait.jpg";
+import stylistPortrait from "@/assets/stylist-portrait.png";
 
 const stats = [
   { icon: Clock, value: "15+", label: "Years Experience" },
