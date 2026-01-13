@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { serviceCategories } from "@/data/services";
+import { useServicesWithCategories, ServiceCategory, Service } from "@/hooks/useServices";
 import { Button } from "@/components/ui/button";
-import { Clock, Scissors, Palette, Sparkles, Eye, Droplet, Heart, Crown } from "lucide-react";
+import { Clock, Scissors, Palette, Sparkles, Eye, Droplet, Heart, Crown, Loader2 } from "lucide-react";
 
 const BOOKING_URL = "https://sharoncarr.glossgenius.com/book";
 
@@ -19,13 +19,45 @@ const iconMap: Record<string, React.ElementType> = {
 };
 
 const Services = () => {
-  const [activeCategory, setActiveCategory] = useState("hair");
+  const [activeCategoryId, setActiveCategoryId] = useState<string | null>(null);
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
 
-  const activeServices = serviceCategories.find((cat) => cat.id === activeCategory);
+  const { data, isLoading, error } = useServicesWithCategories();
+
+  // Set initial active category when data loads
+  const activeCategory = useMemo(() => {
+    if (!data?.categories?.length) return null;
+    const id = activeCategoryId || data.categories[0]?.id;
+    return data.categories.find((cat) => cat.id === id) || data.categories[0];
+  }, [data?.categories, activeCategoryId]);
+
+  const activeServices = useMemo(() => {
+    if (!activeCategory || !data?.services) return [];
+    return data.services.filter((s) => s.category_id === activeCategory.id);
+  }, [activeCategory, data?.services]);
+
+  if (isLoading) {
+    return (
+      <section id="services" className="py-24 relative overflow-hidden gradient-bg">
+        <div className="container mx-auto px-4 flex justify-center items-center min-h-[400px]">
+          <Loader2 className="w-8 h-8 animate-spin text-pink-primary" />
+        </div>
+      </section>
+    );
+  }
+
+  if (error || !data?.categories?.length) {
+    return (
+      <section id="services" className="py-24 relative overflow-hidden gradient-bg">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-muted-foreground">Unable to load services. Please try again later.</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="services" className="py-24 relative overflow-hidden gradient-bg">
@@ -60,20 +92,20 @@ const Services = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="flex flex-wrap justify-center gap-3 mb-12"
         >
-          {serviceCategories.map((category) => {
+          {data.categories.map((category) => {
             const IconComponent = iconMap[category.icon] || Sparkles;
             return (
               <button
                 key={category.id}
-                onClick={() => setActiveCategory(category.id)}
+                onClick={() => setActiveCategoryId(category.id)}
                 className={`flex items-center gap-2 px-4 py-2 rounded-full font-medium transition-all duration-300 ${
-                  activeCategory === category.id
+                  activeCategory?.id === category.id
                     ? "bg-gradient-to-r from-pink-primary to-purple-primary text-primary-foreground shadow-lg"
                     : "glass-card hover:bg-white/40 text-foreground"
                 }`}
               >
                 <IconComponent className="w-4 h-4" />
-                <span className="hidden sm:inline">{category.title}</span>
+                <span className="hidden sm:inline">{category.name}</span>
               </button>
             );
           })}
@@ -82,16 +114,16 @@ const Services = () => {
         {/* Services Grid */}
         <AnimatePresence mode="wait">
           <motion.div
-            key={activeCategory}
+            key={activeCategory?.id}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.4 }}
             className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
           >
-            {activeServices?.services.map((service, index) => (
+            {activeServices.map((service, index) => (
               <motion.div
-                key={service.name}
+                key={service.id}
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
@@ -101,10 +133,10 @@ const Services = () => {
                 {/* Price Badge */}
                 <div className="flex justify-between items-start mb-4">
                   <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-primary/20 to-purple-primary/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    {iconMap[activeServices.icon] && (
+                    {activeCategory && iconMap[activeCategory.icon] && (
                       <span className="text-pink-primary">
                         {(() => {
-                          const Icon = iconMap[activeServices.icon];
+                          const Icon = iconMap[activeCategory.icon];
                           return <Icon className="w-5 h-5" />;
                         })()}
                       </span>

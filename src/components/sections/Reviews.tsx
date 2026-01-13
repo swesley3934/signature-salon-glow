@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { reviews } from "@/data/reviews";
-import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import { useReviews, Review } from "@/hooks/useReviews";
+import { Star, ChevronLeft, ChevronRight, Quote, Loader2 } from "lucide-react";
 
 const Reviews = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -12,16 +12,21 @@ const Reviews = () => {
     threshold: 0.1,
   });
 
+  const { data: reviews = [], isLoading, error } = useReviews(true); // Only published reviews
+
   // Auto-advance carousel
   useEffect(() => {
+    if (reviews.length === 0) return;
+    
     const timer = setInterval(() => {
       setDirection(1);
       setCurrentIndex((prev) => (prev + 1) % reviews.length);
     }, 6000);
     return () => clearInterval(timer);
-  }, []);
+  }, [reviews.length]);
 
   const navigate = (dir: number) => {
+    if (reviews.length === 0) return;
     setDirection(dir);
     setCurrentIndex((prev) => {
       if (dir === 1) return (prev + 1) % reviews.length;
@@ -44,7 +49,28 @@ const Reviews = () => {
     }),
   };
 
+  if (isLoading) {
+    return (
+      <section id="reviews" className="py-24 relative overflow-hidden gradient-bg">
+        <div className="container mx-auto px-4 flex justify-center items-center min-h-[400px]">
+          <Loader2 className="w-8 h-8 animate-spin text-pink-primary" />
+        </div>
+      </section>
+    );
+  }
+
+  if (error || reviews.length === 0) {
+    return (
+      <section id="reviews" className="py-24 relative overflow-hidden gradient-bg">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-muted-foreground">No reviews available at this time.</p>
+        </div>
+      </section>
+    );
+  }
+
   const currentReview = reviews[currentIndex];
+  const averageRating = reviews.reduce((acc, r) => acc + r.rating, 0) / reviews.length;
 
   return (
     <section id="reviews" className="py-24 relative overflow-hidden gradient-bg">
@@ -82,12 +108,12 @@ const Reviews = () => {
             {[...Array(5)].map((_, i) => (
               <Star
                 key={i}
-                className="w-6 h-6 fill-pink-primary text-pink-primary"
+                className={`w-6 h-6 ${i < Math.round(averageRating) ? 'fill-pink-primary text-pink-primary' : 'text-muted-foreground/30'}`}
               />
             ))}
           </div>
-          <span className="text-2xl font-bold text-foreground">5.0</span>
-          <span className="text-muted-foreground">Based on 100+ reviews</span>
+          <span className="text-2xl font-bold text-foreground">{averageRating.toFixed(1)}</span>
+          <span className="text-muted-foreground">Based on {reviews.length} review{reviews.length !== 1 ? 's' : ''}</span>
         </motion.div>
 
         {/* Review Carousel */}
@@ -145,22 +171,30 @@ const Reviews = () => {
 
                 {/* Review Text */}
                 <p className="text-lg md:text-xl text-foreground leading-relaxed mb-8 max-w-2xl mx-auto">
-                  "{currentReview.text}"
+                  "{currentReview.review_text}"
                 </p>
 
                 {/* Client Info */}
                 <div className="flex flex-col items-center">
                   {/* Avatar */}
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-r from-pink-primary to-purple-primary flex items-center justify-center mb-3">
-                    <span className="text-xl font-bold text-primary-foreground">
-                      {currentReview.name.charAt(0)}
-                    </span>
-                  </div>
+                  {currentReview.avatar_url ? (
+                    <img 
+                      src={currentReview.avatar_url} 
+                      alt={currentReview.customer_name}
+                      className="w-16 h-16 rounded-full object-cover mb-3"
+                    />
+                  ) : (
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-r from-pink-primary to-purple-primary flex items-center justify-center mb-3">
+                      <span className="text-xl font-bold text-primary-foreground">
+                        {currentReview.customer_name.charAt(0)}
+                      </span>
+                    </div>
+                  )}
                   <h4 className="font-semibold text-foreground text-lg">
-                    {currentReview.name}
+                    {currentReview.customer_name}
                   </h4>
                   <p className="text-muted-foreground text-sm">
-                    {currentReview.service} • {currentReview.date}
+                    {currentReview.service_received}{currentReview.review_date && ` • ${currentReview.review_date}`}
                   </p>
                   <span className="mt-2 px-3 py-1 rounded-full bg-green-500/10 text-green-600 text-xs font-medium">
                     ✓ Verified Client
