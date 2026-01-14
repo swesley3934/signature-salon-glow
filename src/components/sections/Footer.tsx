@@ -7,10 +7,10 @@ const BOOKING_URL = "https://sharoncarr.glossgenius.com/book";
 const footerLinks = {
   quickLinks: [
     { name: "Home", href: "#home" },
-    { name: "About", href: "#about" },
     { name: "Services", href: "#services" },
     { name: "Portfolio", href: "#portfolio" },
     { name: "Reviews", href: "#reviews" },
+    { name: "About", href: "#about" },
     { name: "Contact", href: "#contact" },
   ],
   services: [
