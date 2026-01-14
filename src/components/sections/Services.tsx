@@ -5,6 +5,45 @@ import { useServicesWithCategories, ServiceCategory, Service } from "@/hooks/use
 import { Button } from "@/components/ui/button";
 import { Clock, Scissors, Palette, Sparkles, Eye, Droplet, Heart, Crown, Loader2 } from "lucide-react";
 
+// Service Images
+import womensHaircut from "@/assets/services/womens-haircut.jpg";
+import mensHaircut from "@/assets/services/mens-haircut.jpg";
+import girlsHaircut from "@/assets/services/girls-haircut.jpg";
+import boysHaircut from "@/assets/services/boys-haircut.jpg";
+import shampooBlowdry from "@/assets/services/shampoo-blowdry.jpg";
+import formalStyle from "@/assets/services/formal-style.jpg";
+import bridalUpdo from "@/assets/services/bridal-updo.jpg";
+import silkPress from "@/assets/services/silk-press.jpg";
+import singleProcessColor from "@/assets/services/single-process-color.jpg";
+import colorRetouch from "@/assets/services/color-retouch.jpg";
+import fullFoilHighlights from "@/assets/services/full-foil-highlights.jpg";
+import partialFoils from "@/assets/services/partial-foils.jpg";
+import expressFoil from "@/assets/services/express-foil.jpg";
+import partialFoilColor from "@/assets/services/partial-foil-color.jpg";
+import balayage from "@/assets/services/balayage.jpg";
+import platinumCard from "@/assets/services/platinum-card.jpg";
+import mensFoil from "@/assets/services/mens-foil.jpg";
+import toner from "@/assets/services/toner.jpg";
+import brazilianBlowout from "@/assets/services/brazilian-blowout.jpg";
+import splitEndTreatment from "@/assets/services/split-end-treatment.jpg";
+import texturePerm from "@/assets/services/texture-perm.jpg";
+import deepConditioning from "@/assets/services/deep-conditioning.jpg";
+import scalpMassage from "@/assets/services/scalp-massage.jpg";
+import bondrxTreatment from "@/assets/services/bondrx-treatment.jpg";
+import threading from "@/assets/services/threading.jpg";
+import lipThreading from "@/assets/services/lip-threading.jpg";
+import chinThreading from "@/assets/services/chin-threading.jpg";
+import waxing from "@/assets/services/waxing.jpg";
+import herbalFacial from "@/assets/services/herbal-facial.jpg";
+import goldFacial from "@/assets/services/gold-facial.jpg";
+import chemicalPeel from "@/assets/services/chemical-peel.jpg";
+import facialCleanse from "@/assets/services/facial-cleanse.jpg";
+import makeup from "@/assets/services/makeup.jpg";
+import mensHairpiece from "@/assets/services/mens-hairpiece.jpg";
+import womensWig from "@/assets/services/womens-wig.jpg";
+import beardTrim from "@/assets/services/beard-trim.jpg";
+import additionalServices from "@/assets/services/additional-services.jpg";
+
 const BOOKING_URL = "https://sharoncarr.glossgenius.com/book";
 
 const iconMap: Record<string, React.ElementType> = {
@@ -16,6 +55,47 @@ const iconMap: Record<string, React.ElementType> = {
   Heart,
   Brush: Sparkles,
   Crown,
+};
+
+// Map service names to their imported images
+const serviceImageMap: Record<string, string> = {
+  "Women's Haircut": womensHaircut,
+  "Men's Haircut": mensHaircut,
+  "Girl Haircut": girlsHaircut,
+  "Boy's Haircut": boysHaircut,
+  "Women's Shampoo Blow Dry": shampooBlowdry,
+  "Formal Style": formalStyle,
+  "Bridal Updo": bridalUpdo,
+  "Silk Press": silkPress,
+  "Single Process Color": singleProcessColor,
+  "Retouch - Single Process Color": colorRetouch,
+  "Full Foil Highlights": fullFoilHighlights,
+  "Partial Foils": partialFoils,
+  "Express Foil": expressFoil,
+  "Partial Foil+All Over Color": partialFoilColor,
+  "Balayage": balayage,
+  "Platinum Card": platinumCard,
+  "Partial Foil Men": mensFoil,
+  "Toner": toner,
+  "Brazilian Blowout": brazilianBlowout,
+  "Split End Treatment": splitEndTreatment,
+  "Texture Perm": texturePerm,
+  "Deep Conditioning - Women": deepConditioning,
+  "Scalp Massage": scalpMassage,
+  "BondRx Treatment": bondrxTreatment,
+  "Threading": threading,
+  "Lip Threading": lipThreading,
+  "Chin Threading": chinThreading,
+  "Waxing": waxing,
+  "Herbal Facial": herbalFacial,
+  "Gold/Diamond Facial": goldFacial,
+  "Chemical Peel": chemicalPeel,
+  "Facial Cleanse": facialCleanse,
+  "Make-up": makeup,
+  "Men's Hairpiece Hair Cut": mensHairpiece,
+  "Women's Wig Cut": womensWig,
+  "Beard Trim": beardTrim,
+  "Additional Services": additionalServices,
 };
 
 const Services = () => {
@@ -121,7 +201,9 @@ const Services = () => {
             transition={{ duration: 0.4 }}
             className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
           >
-            {activeServices.map((service, index) => (
+            {activeServices.map((service, index) => {
+              const serviceImage = serviceImageMap[service.name];
+              return (
               <motion.div
                 key={service.id}
                 initial={{ opacity: 0, y: 30 }}
@@ -131,10 +213,10 @@ const Services = () => {
                 onClick={() => window.open(BOOKING_URL, "_blank")}
               >
                 {/* Service Image */}
-                {service.image_url && (
+                {serviceImage && (
                   <div className="relative h-40 overflow-hidden">
                     <img 
-                      src={service.image_url} 
+                      src={serviceImage} 
                       alt={service.name}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
@@ -186,7 +268,8 @@ const Services = () => {
                   </div>
                 </div>
               </motion.div>
-            ))}
+              );
+            })}
           </motion.div>
         </AnimatePresence>
 
