@@ -165,19 +165,25 @@ const Contact = () => {
               </a>
             </motion.div>
 
-            {/* Map Placeholder */}
+            {/* Google Maps */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.8 }}
               className="glass-card p-2 overflow-hidden"
             >
-              <div className="aspect-video rounded-xl bg-gradient-to-br from-pink-light/50 to-purple-light/50 flex items-center justify-center">
-                <div className="text-center">
-                  <MapPin className="w-12 h-12 mx-auto mb-2 text-pink-primary" />
-                  <p className="text-muted-foreground text-sm">Google Maps Embed</p>
-                  <p className="text-xs text-muted-foreground mt-1">Add your location here</p>
-                </div>
+              <div className="aspect-video rounded-xl overflow-hidden">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3012.594538585831!2d-86.79352442484942!3d33.4486465493616!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88891904bed4f85b%3A0x3e5f38a9a4912375!2s624%20Montgomery%20Hwy%20suite%2010%2C%20Vestavia%20Hills%2C%20AL%2035216!5e1!3m2!1sen!2sus!4v1768350331846!5m2!1sen!2sus"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="SC Signature Hair Salon Location"
+                  className="w-full h-full"
+                />
               </div>
             </motion.div>
           </motion.div>
