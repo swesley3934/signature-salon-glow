@@ -118,7 +118,8 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="text-lg md:text-xl text-muted-foreground mb-4 tracking-wide"
+            className="text-lg md:text-xl text-white mb-4 tracking-wide drop-shadow-lg"
+            style={{ textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}
           >
             ✦ Premium Hair & Beauty Services ✦
           </motion.p>
@@ -128,11 +129,12 @@ const Hero = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.8 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold mb-6"
+            className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold mb-6 drop-shadow-xl"
+            style={{ textShadow: '0 4px 20px rgba(0,0,0,0.4)' }}
           >
             <span className="gradient-text">SC Signature</span>
             <br />
-            <span className="text-foreground">Hair Salon</span>
+            <span className="text-white">Hair Salon</span>
           </motion.h1>
 
           {/* Tagline */}
@@ -140,7 +142,8 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.6 }}
-            className="text-xl md:text-2xl lg:text-3xl text-muted-foreground font-light mb-10 italic font-serif"
+            className="text-xl md:text-2xl lg:text-3xl text-white/90 font-light mb-10 italic font-serif drop-shadow-lg"
+            style={{ textShadow: '0 2px 15px rgba(0,0,0,0.5)' }}
           >
             Where Beauty Meets Artistry
           </motion.p>
