@@ -7,12 +7,24 @@ import { usePortfolioImages, PortfolioImage } from "@/hooks/usePortfolio";
 // Fallback images for when database is empty
 import portfolioStyling1 from "@/assets/portfolio-styling-1.png";
 import portfolioStyling2 from "@/assets/portfolio-styling-2.png";
+import portfolioStyling3 from "@/assets/portfolio-styling-3.png";
 import portfolioColor1 from "@/assets/portfolio-color-1.png";
+import portfolioCuts1 from "@/assets/portfolio-cuts-1.png";
+import portfolioCuts2 from "@/assets/portfolio-cuts-2.png";
+import portfolioCuts3 from "@/assets/portfolio-cuts-3.png";
+import portfolioCuts4 from "@/assets/portfolio-cuts-4.png";
+import portfolioCuts5 from "@/assets/portfolio-cuts-5.png";
 
 const fallbackImages = [
   { id: "1", category: "Styling", title: "Bridal Glam", image_url: portfolioStyling1 },
   { id: "2", category: "Color", title: "Golden Waves", image_url: portfolioColor1 },
   { id: "3", category: "Styling", title: "Casual Chic", image_url: portfolioStyling2 },
+  { id: "4", category: "Styling", title: "Soft Curls", image_url: portfolioStyling3 },
+  { id: "5", category: "Cuts", title: "Platinum Pixie", image_url: portfolioCuts1 },
+  { id: "6", category: "Cuts", title: "Distinguished Gray", image_url: portfolioCuts2 },
+  { id: "7", category: "Cuts", title: "Textured Curls", image_url: portfolioCuts3 },
+  { id: "8", category: "Cuts", title: "Clean Fade", image_url: portfolioCuts4 },
+  { id: "9", category: "Cuts", title: "Classic Trim", image_url: portfolioCuts5 },
 ];
 
 const Portfolio = () => {
