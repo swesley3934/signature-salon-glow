@@ -13,8 +13,8 @@ const contactInfo = [
   {
     icon: MapPin,
     label: "Address",
-    value: "123 Beauty Lane, Suite 100",
-    subValue: "Your City, State 12345",
+    value: "624 Montgomery Hwy Suite 10",
+    subValue: "Vestavia Hills, AL 35216",
   },
   {
     icon: Phone,
