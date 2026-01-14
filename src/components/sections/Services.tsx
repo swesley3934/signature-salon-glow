@@ -127,49 +127,63 @@ const Services = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
-                className="glass-card p-6 group cursor-pointer"
+                className="glass-card group cursor-pointer overflow-hidden"
                 onClick={() => window.open(BOOKING_URL, "_blank")}
               >
-                {/* Price Badge */}
-                <div className="flex justify-between items-start mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-primary/20 to-purple-primary/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    {activeCategory && iconMap[activeCategory.icon] && (
-                      <span className="text-pink-primary">
-                        {(() => {
-                          const Icon = iconMap[activeCategory.icon];
-                          return <Icon className="w-5 h-5" />;
-                        })()}
-                      </span>
-                    )}
+                {/* Service Image */}
+                {service.image_url && (
+                  <div className="relative h-40 overflow-hidden">
+                    <img 
+                      src={service.image_url} 
+                      alt={service.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
                   </div>
-                  <span className="px-3 py-1 rounded-full bg-gradient-to-r from-pink-primary to-purple-primary text-primary-foreground text-sm font-semibold">
-                    {service.price}
-                  </span>
-                </div>
-
-                {/* Service Name */}
-                <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-pink-primary transition-colors">
-                  {service.name}
-                </h3>
-
-                {/* Duration */}
-                <div className="flex items-center gap-2 text-muted-foreground text-sm mb-3">
-                  <Clock className="w-4 h-4" />
-                  <span>{service.duration}</span>
-                </div>
-
-                {/* Note */}
-                {service.note && (
-                  <p className="text-sm text-muted-foreground bg-muted/50 rounded-lg px-3 py-2">
-                    {service.note}
-                  </p>
                 )}
+                
+                <div className="p-6">
+                  {/* Price Badge */}
+                  <div className="flex justify-between items-start mb-4">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-primary/20 to-purple-primary/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      {activeCategory && iconMap[activeCategory.icon] && (
+                        <span className="text-pink-primary">
+                          {(() => {
+                            const Icon = iconMap[activeCategory.icon];
+                            return <Icon className="w-5 h-5" />;
+                          })()}
+                        </span>
+                      )}
+                    </div>
+                    <span className="px-3 py-1 rounded-full bg-gradient-to-r from-pink-primary to-purple-primary text-primary-foreground text-sm font-semibold">
+                      {service.price}
+                    </span>
+                  </div>
 
-                {/* Book Button - Shows on Hover */}
-                <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <Button variant="gradient" size="sm" className="w-full">
-                    Book Now
-                  </Button>
+                  {/* Service Name */}
+                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-pink-primary transition-colors">
+                    {service.name}
+                  </h3>
+
+                  {/* Duration */}
+                  <div className="flex items-center gap-2 text-muted-foreground text-sm mb-3">
+                    <Clock className="w-4 h-4" />
+                    <span>{service.duration}</span>
+                  </div>
+
+                  {/* Note */}
+                  {service.note && (
+                    <p className="text-sm text-muted-foreground bg-muted/50 rounded-lg px-3 py-2">
+                      {service.note}
+                    </p>
+                  )}
+
+                  {/* Book Button - Shows on Hover */}
+                  <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <Button variant="gradient" size="sm" className="w-full">
+                      Book Now
+                    </Button>
+                  </div>
                 </div>
               </motion.div>
             ))}

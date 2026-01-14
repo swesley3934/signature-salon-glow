@@ -130,6 +130,7 @@ export type Database = {
           display_order: number
           duration: string
           id: string
+          image_url: string | null
           name: string
           note: string | null
           price: string
@@ -142,6 +143,7 @@ export type Database = {
           display_order?: number
           duration: string
           id?: string
+          image_url?: string | null
           name: string
           note?: string | null
           price: string
@@ -154,6 +156,7 @@ export type Database = {
           display_order?: number
           duration?: string
           id?: string
+          image_url?: string | null
           name?: string
           note?: string | null
           price?: string
