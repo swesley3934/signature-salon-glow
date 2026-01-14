@@ -117,8 +117,8 @@ export default {
           "50%": { transform: "translateY(-20px) rotate(2deg)" },
         },
         "pulse-glow": {
-          "0%, 100%": { boxShadow: "0 0 20px rgba(255, 105, 180, 0.4)" },
-          "50%": { boxShadow: "0 0 40px rgba(255, 105, 180, 0.6), 0 0 60px rgba(155, 89, 182, 0.3)" },
+          "0%, 100%": { boxShadow: "0 0 20px rgba(142, 43, 92, 0.4)" },
+          "50%": { boxShadow: "0 0 40px rgba(142, 43, 92, 0.6), 0 0 60px rgba(142, 43, 92, 0.3)" },
         },
         shimmer: {
           "0%": { backgroundPosition: "-200% 0" },
