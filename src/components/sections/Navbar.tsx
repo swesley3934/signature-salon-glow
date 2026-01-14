@@ -41,7 +41,7 @@ const Navbar = () => {
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled ? "glass-nav py-3" : "bg-transparent py-5"
         }`}
-        style={{ color: isScrolled ? undefined : 'white' }}
+        
       >
         <div className="container mx-auto px-4 flex items-center justify-between">
           {/* Logo */}
@@ -67,7 +67,7 @@ const Navbar = () => {
                   e.preventDefault();
                   scrollToSection(link.href);
                 }}
-                className={`font-medium transition-colors relative group ${isScrolled ? 'text-foreground/80 hover:text-primary' : 'text-white/90 hover:text-white'}`}
+                className={`font-medium transition-colors relative group ${isScrolled ? 'text-foreground/80 hover:text-primary' : 'text-purple-dark hover:text-purple-primary'}`}
                 whileHover={{ y: -2 }}
               >
                 {link.name}
@@ -90,7 +90,7 @@ const Navbar = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className={`lg:hidden p-2 ${isScrolled ? 'text-foreground' : 'text-white'}`}
+            className={`lg:hidden p-2 ${isScrolled ? 'text-foreground' : 'text-purple-dark'}`}
             aria-label="Toggle menu"
           >
             {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
