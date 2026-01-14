@@ -15,10 +15,10 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        gradient: "bg-gradient-to-r from-primary to-secondary text-primary-foreground shadow-lg hover:shadow-glow hover:-translate-y-0.5",
+        gradient: "bg-gradient-to-r from-pink-primary to-purple-primary text-primary-foreground shadow-lg hover:shadow-glow hover:-translate-y-0.5",
         glass: "bg-glass-white backdrop-blur-md border border-white/20 text-foreground hover:bg-white/40 hover:-translate-y-0.5",
         "glass-outline": "bg-transparent backdrop-blur-sm border-2 border-white/40 text-foreground hover:bg-white/20 hover:border-white/60",
-        glow: "bg-gradient-to-r from-primary to-secondary text-primary-foreground shadow-glow animate-pulse-glow hover:-translate-y-0.5",
+        glow: "bg-gradient-to-r from-pink-primary to-purple-primary text-primary-foreground shadow-glow animate-pulse-glow hover:-translate-y-0.5",
       },
       size: {
         default: "h-10 px-6 py-2",
