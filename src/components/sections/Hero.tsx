@@ -24,7 +24,7 @@ const Hero = () => {
         />
         {/* Gradient Overlay for text readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background/60" />
-        <div className="absolute inset-0 bg-gradient-to-r from-pink-primary/5 to-purple-primary/5" />
+        <div className="absolute inset-0 bg-gradient-to-r from-amber-500/10 via-yellow-600/5 to-amber-700/10" />
       </div>
 
       {/* Content */}
