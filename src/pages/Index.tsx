@@ -13,10 +13,10 @@ const Index = () => {
     <main className="relative">
       <Navbar />
       <Hero />
-      <About />
       <Services />
       <Portfolio />
       <Reviews />
+      <About />
       <Contact />
       <Footer />
       <FloatingBookButton />
