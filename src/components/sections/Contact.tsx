@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { MapPin, Phone, Mail, Clock, Send, Instagram, Facebook } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const BOOKING_URL = "https://sharoncarr.glossgenius.com/book";
 
@@ -25,8 +26,8 @@ const contactInfo = [
   {
     icon: Mail,
     label: "Email",
-    value: "hello@scsignature.com",
-    href: "mailto:hello@scsignature.com",
+    value: "scsignaturestyles@gmail.com",
+    href: "mailto:scsignaturestyles@gmail.com",
   },
 ];
 
@@ -48,16 +49,38 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    
-    toast({
-      title: "Message Sent! ✨",
-      description: "Thank you for reaching out. We'll get back to you soon!",
-    });
-    
-    setIsSubmitting(false);
-    (e.target as HTMLFormElement).reset();
+    const formData = new FormData(e.currentTarget);
+    const name = formData.get("name") as string;
+    const email = formData.get("email") as string;
+    const phone = formData.get("phone") as string;
+    const service = formData.get("service") as string;
+    const message = formData.get("message") as string;
+
+    try {
+      const { error } = await supabase.functions.invoke("send-contact-email", {
+        body: { name, email, phone, service, message },
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      toast({
+        title: "Message Sent! ✨",
+        description: "Thank you for reaching out. We'll get back to you soon!",
+      });
+      
+      (e.target as HTMLFormElement).reset();
+    } catch (error) {
+      console.error("Error sending message:", error);
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again or contact us directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -212,6 +235,7 @@ const Contact = () => {
                     </label>
                     <Input
                       id="name"
+                      name="name"
                       type="text"
                       required
                       placeholder="Your name"
@@ -224,6 +248,7 @@ const Contact = () => {
                     </label>
                     <Input
                       id="email"
+                      name="email"
                       type="email"
                       required
                       placeholder="your@email.com"
@@ -238,6 +263,7 @@ const Contact = () => {
                   </label>
                   <Input
                     id="phone"
+                    name="phone"
                     type="tel"
                     placeholder="(555) 123-4567"
                     className="bg-white/50 border-white/30 focus:border-pink-primary"
@@ -250,6 +276,7 @@ const Contact = () => {
                   </label>
                   <select
                     id="service"
+                    name="service"
                     className="w-full h-10 px-3 rounded-full bg-white/50 border border-white/30 focus:border-pink-primary focus:outline-none focus:ring-2 focus:ring-pink-primary/20 transition-colors"
                   >
                     <option value="">Select a service</option>
@@ -268,6 +295,7 @@ const Contact = () => {
                   </label>
                   <Textarea
                     id="message"
+                    name="message"
                     required
                     placeholder="Tell us about your beauty goals..."
                     rows={4}
