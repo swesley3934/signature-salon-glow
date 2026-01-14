@@ -11,36 +11,36 @@ const Hero = () => {
   };
 
   return (
-    <section id="home" className="relative overflow-hidden">
-      {/* Hero Image Section */}
-      <div className="relative h-[50vh] md:h-[60vh] overflow-hidden">
+    <section id="home" className="relative min-h-screen overflow-hidden">
+      {/* Full-screen Hero Image */}
+      <div className="absolute inset-0">
         <img 
           src={heroSalonImage} 
-          alt="Luxurious SC Signature Hair Salon interior" 
-          className="w-full h-full object-cover animate-ken-burns"
+          alt="Beautiful woman with luxurious hair at SC Signature Hair Salon" 
+          className="w-full h-full object-cover object-center animate-ken-burns"
         />
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-transparent to-background/40" />
-        <div className="absolute inset-0 bg-gradient-to-r from-amber-500/10 via-yellow-600/5 to-amber-700/10" />
+        {/* Gradient Overlays for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/20 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/30" />
       </div>
 
-      {/* Content Section Below Image */}
-      <div className="relative bg-background py-12 md:py-16">
-        <div className="container mx-auto px-4 text-center">
+      {/* Content Overlay */}
+      <div className="relative z-10 min-h-screen flex items-center">
+        <div className="container mx-auto px-4 md:px-8 lg:px-16">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="max-w-4xl mx-auto"
+            className="max-w-2xl"
           >
             {/* Tagline Above */}
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.6 }}
-              className="text-lg md:text-xl text-black mb-4 tracking-wide"
+              className="text-sm md:text-base text-white/80 mb-4 tracking-widest uppercase"
             >
-              ✦ Premium Hair & Beauty Services ✦
+              Premium Hair & Beauty Services
             </motion.p>
 
             {/* Main Heading */}
@@ -48,11 +48,10 @@ const Hero = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.8 }}
-              className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold mb-6 text-black"
+              className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold mb-6 text-white leading-tight"
             >
-              <span>SC Signature</span>
-              <br />
-              <span>Hair Salon</span>
+              <span className="block">SC Signature</span>
+              <span className="block">Hair Salon</span>
             </motion.h1>
 
             {/* Tagline */}
@@ -60,7 +59,7 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.6 }}
-              className="text-xl md:text-2xl lg:text-3xl text-black font-light mb-10 italic font-serif"
+              className="text-lg md:text-xl lg:text-2xl text-white/90 font-light mb-10 italic font-serif"
             >
               Where Beauty Meets Artistry
             </motion.p>
@@ -70,46 +69,44 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7, duration: 0.6 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+              className="flex flex-col sm:flex-row gap-4"
             >
               <Button
-                variant="glow"
                 size="xl"
                 onClick={() => window.open(BOOKING_URL, "_blank")}
-                className="min-w-[220px]"
+                className="min-w-[180px] bg-white text-black hover:bg-white/90 font-semibold tracking-wide"
               >
-                Book Your Appointment
+                BOOK NOW
               </Button>
               <Button
-                variant="glass-outline"
                 size="xl"
                 onClick={scrollToServices}
-                className="min-w-[220px]"
+                className="min-w-[180px] bg-black text-white hover:bg-black/90 font-semibold tracking-wide"
               >
-                Explore Services
+                EXPLORE SERVICES
               </Button>
             </motion.div>
           </motion.div>
-
-          {/* Scroll Indicator */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.2, duration: 0.6 }}
-            className="mt-10"
-          >
-            <motion.button
-              onClick={scrollToServices}
-              animate={{ y: [0, 10, 0] }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-              className="text-muted-foreground hover:text-primary transition-colors"
-              aria-label="Scroll down"
-            >
-              <ChevronDown size={32} />
-            </motion.button>
-          </motion.div>
         </div>
       </div>
+
+      {/* Scroll Indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2, duration: 0.6 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
+      >
+        <motion.button
+          onClick={scrollToServices}
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          className="text-white/70 hover:text-white transition-colors"
+          aria-label="Scroll down"
+        >
+          <ChevronDown size={32} />
+        </motion.button>
+      </motion.div>
     </section>
   );
 };
