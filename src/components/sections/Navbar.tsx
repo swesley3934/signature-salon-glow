@@ -67,7 +67,7 @@ const Navbar = () => {
                   e.preventDefault();
                   scrollToSection(link.href);
                 }}
-                className={`font-medium transition-colors relative group ${isScrolled ? 'text-foreground/80 hover:text-primary' : 'text-purple-dark hover:text-purple-primary'}`}
+                className={`font-medium transition-colors relative group ${isScrolled ? 'text-foreground/80 hover:text-primary' : 'text-white hover:text-white/80'}`}
                 whileHover={{ y: -2 }}
               >
                 {link.name}
