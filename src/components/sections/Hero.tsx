@@ -15,12 +15,12 @@ const Hero = () => {
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Hero Background Image */}
-      <div className="absolute inset-0">
+      {/* Hero Background Image with Ken Burns effect */}
+      <div className="absolute inset-0 overflow-hidden">
         <img 
           src={heroSalonImage} 
           alt="Luxurious SC Signature Hair Salon interior" 
-          className="w-full h-full object-cover blur-[2px]"
+          className="w-full h-full object-cover blur-[2px] animate-ken-burns"
         />
         {/* Gradient Overlay for text readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background/60" />
