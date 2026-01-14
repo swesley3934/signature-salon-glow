@@ -108,7 +108,7 @@ const Portfolio = () => {
           initial={{ opacity: 0 }} 
           animate={inView ? { opacity: 1 } : {}} 
           transition={{ duration: 0.6, delay: 0.3 }} 
-          className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4 space-y-4"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
         >
           {filteredImages.map((image, index) => (
             <motion.div 
@@ -117,13 +117,11 @@ const Portfolio = () => {
               initial={{ opacity: 0, scale: 0.9 }} 
               animate={{ opacity: 1, scale: 1 }} 
               transition={{ duration: 0.4, delay: index * 0.05 }} 
-              className="break-inside-avoid group cursor-pointer" 
+              className="group cursor-pointer" 
               onClick={() => setSelectedImage(image.id)}
             >
-              <div className="glass-card p-2 overflow-hidden">
-                <div className={`relative rounded-xl overflow-hidden ${
-                  index % 3 === 0 ? "aspect-[3/4]" : index % 3 === 1 ? "aspect-square" : "aspect-[4/3]"
-                }`}>
+              <div className="glass-card p-2 overflow-hidden h-full">
+                <div className="relative rounded-xl overflow-hidden aspect-[3/4]">
                   <img 
                     src={image.image_url} 
                     alt={image.title} 
