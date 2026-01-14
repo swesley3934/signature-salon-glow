@@ -21,7 +21,7 @@ const Hero = () => {
         />
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-transparent to-background/40" />
-        <div className="absolute inset-0 bg-gradient-to-r from-emerald-900/10 via-amber-600/5 to-emerald-800/10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-amber-500/10 via-yellow-600/5 to-amber-700/10" />
       </div>
 
       {/* Content Section Below Image */}

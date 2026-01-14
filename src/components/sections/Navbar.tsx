@@ -51,7 +51,7 @@ const Navbar = () => {
               e.preventDefault();
               scrollToSection("#home");
             }}
-            className="text-2xl md:text-3xl font-serif font-bold text-foreground cursor-pointer"
+            className="text-2xl md:text-3xl font-serif font-bold gradient-text cursor-pointer"
             whileHover={{ scale: 1.02 }}
           >
             SC Signature
@@ -67,7 +67,7 @@ const Navbar = () => {
                   e.preventDefault();
                   scrollToSection(link.href);
                 }}
-                className={`font-medium transition-colors relative group ${isScrolled ? 'text-foreground hover:text-primary' : 'text-foreground hover:text-primary'}`}
+                className={`font-medium transition-colors relative group ${isScrolled ? 'text-foreground/80 hover:text-primary' : 'text-purple-dark hover:text-purple-primary'}`}
                 whileHover={{ y: -2 }}
               >
                 {link.name}
