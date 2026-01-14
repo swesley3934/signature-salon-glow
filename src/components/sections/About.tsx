@@ -100,9 +100,9 @@ const About = () => {
             {/* Quote */}
             <div className="glass-card p-6 mb-10 border-l-4 border-pink-primary">
               <p className="text-foreground italic font-serif text-lg">
-                "Beauty is about enhancing what you have. Let yourself shine through."
+                "Your hair tells a story—let's make sure it's one you love to tell."
               </p>
-              <p className="text-muted-foreground mt-2">— Sharon, Founder</p>
+              <p className="text-muted-foreground mt-2">— Sharon Carr</p>
             </div>
 
             {/* Stats */}
