@@ -176,14 +176,18 @@ const Contact = () => {
               className="flex gap-4"
             >
               <a
-                href="#"
+                href="https://www.instagram.com/sharoncarr5488/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-12 h-12 rounded-full glass-card flex items-center justify-center text-foreground hover:text-pink-primary hover:scale-110 transition-all"
                 aria-label="Instagram"
               >
                 <Instagram size={22} />
               </a>
               <a
-                href="#"
+                href="https://www.facebook.com/profile.php?id=61563807729360"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-12 h-12 rounded-full glass-card flex items-center justify-center text-foreground hover:text-pink-primary hover:scale-110 transition-all"
                 aria-label="Facebook"
               >
