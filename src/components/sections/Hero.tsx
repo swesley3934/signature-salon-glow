@@ -17,7 +17,7 @@ const Hero = () => {
         <img 
           src={heroSalonImage} 
           alt="Luxurious SC Signature Hair Salon interior" 
-          className="w-full h-full object-cover animate-ken-burns blur-[2px]"
+          className="w-full h-full object-cover animate-ken-burns"
         />
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-transparent to-background/40" />
@@ -38,11 +38,9 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.6 }}
-              className="text-lg md:text-xl mb-4 tracking-wide"
+              className="text-lg md:text-xl text-muted-foreground mb-4 tracking-wide"
             >
-              <span className="bg-primary/20 text-primary px-4 py-2 rounded-full font-medium">
-                ✦ Premium Hair & Beauty Services ✦
-              </span>
+              ✦ Premium Hair & Beauty Services ✦
             </motion.p>
 
             {/* Main Heading */}
@@ -52,13 +50,9 @@ const Hero = () => {
               transition={{ delay: 0.3, duration: 0.8 }}
               className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold mb-6"
             >
-              <span className="bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 bg-clip-text text-transparent drop-shadow-lg">
-                SC Signature
-              </span>
+              <span className="gradient-text">SC Signature</span>
               <br />
-              <span className="text-foreground bg-background/80 px-4 py-1 rounded-lg inline-block mt-2">
-                Hair Salon
-              </span>
+              <span className="text-foreground">Hair Salon</span>
             </motion.h1>
 
             {/* Tagline */}
@@ -66,11 +60,9 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.6 }}
-              className="text-xl md:text-2xl lg:text-3xl font-light mb-10 italic font-serif"
+              className="text-xl md:text-2xl lg:text-3xl text-muted-foreground font-light mb-10 italic font-serif"
             >
-              <span className="bg-foreground/10 backdrop-blur-sm text-foreground px-6 py-3 rounded-lg inline-block">
-                Where Beauty Meets Artistry
-              </span>
+              Where Beauty Meets Artistry
             </motion.p>
 
             {/* CTA Buttons */}
