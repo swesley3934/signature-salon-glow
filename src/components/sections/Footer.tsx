@@ -115,17 +115,17 @@ const Footer = () => {
                 <li className="flex items-start gap-3 text-sm">
                   <MapPin className="w-4 h-4 text-pink-dark flex-shrink-0 mt-0.5" />
                   <span className="text-purple-dark/70">
-                    123 Beauty Lane, Suite 100<br />
-                    Your City, State 12345
+                    624 Montgomery Hwy Suite 10<br />
+                    Vestavia Hills, AL 35216
                   </span>
                 </li>
                 <li>
                   <a
-                    href="tel:+15551234567"
+                    href="tel:+12056159273"
                     className="flex items-center gap-3 text-sm text-purple-dark/70 hover:text-pink-dark transition-colors"
                   >
                     <Phone className="w-4 h-4 text-pink-dark" />
-                    (555) 123-4567
+                    (205) 615-9273
                   </a>
                 </li>
                 <li>
