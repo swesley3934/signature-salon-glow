@@ -21,6 +21,7 @@ export interface Service {
   duration: string;
   note: string | null;
   deposit: string | null;
+  image_url: string | null;
   display_order: number;
   created_at: string;
   updated_at: string;

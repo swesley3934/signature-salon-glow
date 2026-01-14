@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { Plus, Pencil, Trash2, Loader2, GripVertical } from "lucide-react";
+import { Plus, Pencil, Trash2, Loader2, GripVertical, Upload, X, ImageIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 import {
   Dialog,
   DialogContent,
@@ -58,6 +60,7 @@ export default function ServicesManager() {
   const createService = useCreateService();
   const updateService = useUpdateService();
   const deleteService = useDeleteService();
+  const { toast } = useToast();
 
   const [categoryDialogOpen, setCategoryDialogOpen] = useState(false);
   const [serviceDialogOpen, setServiceDialogOpen] = useState(false);
@@ -66,6 +69,8 @@ export default function ServicesManager() {
   const [editingService, setEditingService] = useState<Service | null>(null);
   const [deletingItem, setDeletingItem] = useState<{ type: "category" | "service"; id: string; name: string } | null>(null);
   const [selectedCategoryId, setSelectedCategoryId] = useState<string>("");
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Form states
   const [categoryForm, setCategoryForm] = useState({
@@ -79,6 +84,7 @@ export default function ServicesManager() {
     duration: "",
     note: "",
     deposit: "",
+    image_url: "",
   });
 
   const openCategoryDialog = (category?: ServiceCategory) => {
@@ -106,12 +112,46 @@ export default function ServicesManager() {
         duration: service.duration,
         note: service.note || "",
         deposit: service.deposit || "",
+        image_url: service.image_url || "",
       });
     } else {
       setEditingService(null);
-      setServiceForm({ name: "", price: "", duration: "", note: "", deposit: "" });
+      setServiceForm({ name: "", price: "", duration: "", note: "", deposit: "", image_url: "" });
     }
     setServiceDialogOpen(true);
+  };
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadingImage(true);
+    try {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
+      const filePath = `services/${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('service-images')
+        .upload(filePath, file);
+
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('service-images')
+        .getPublicUrl(filePath);
+
+      setServiceForm(prev => ({ ...prev, image_url: publicUrl }));
+      toast({ title: "Image uploaded successfully" });
+    } catch (error: any) {
+      toast({ title: "Error uploading image", description: error.message, variant: "destructive" });
+    } finally {
+      setUploadingImage(false);
+    }
+  };
+
+  const handleRemoveImage = () => {
+    setServiceForm(prev => ({ ...prev, image_url: "" }));
   };
 
   const handleSaveCategory = async () => {
@@ -139,6 +179,7 @@ export default function ServicesManager() {
       duration: serviceForm.duration,
       note: serviceForm.note || null,
       deposit: serviceForm.deposit || null,
+      image_url: serviceForm.image_url || null,
       display_order: editingService?.display_order ?? 0,
     };
 
@@ -250,12 +291,25 @@ export default function ServicesManager() {
                           key={service.id}
                           className="flex items-center justify-between p-3 bg-muted/50 rounded-lg"
                         >
-                          <div className="flex-1">
-                            <p className="font-medium">{service.name}</p>
-                            <p className="text-sm text-muted-foreground">
-                              {service.price} • {service.duration}
-                              {service.note && ` • ${service.note}`}
-                            </p>
+                          <div className="flex items-center gap-3 flex-1">
+                            {service.image_url ? (
+                              <img 
+                                src={service.image_url} 
+                                alt={service.name}
+                                className="w-12 h-12 rounded-lg object-cover"
+                              />
+                            ) : (
+                              <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center">
+                                <ImageIcon className="w-5 h-5 text-muted-foreground" />
+                              </div>
+                            )}
+                            <div className="flex-1">
+                              <p className="font-medium">{service.name}</p>
+                              <p className="text-sm text-muted-foreground">
+                                {service.price} • {service.duration}
+                                {service.note && ` • ${service.note}`}
+                              </p>
+                            </div>
                           </div>
                           <div className="flex items-center gap-2">
                             <Button
@@ -414,6 +468,48 @@ export default function ServicesManager() {
                 onChange={(e) => setServiceForm({ ...serviceForm, deposit: e.target.value })}
                 placeholder="e.g., $50"
               />
+            </div>
+            <div>
+              <Label>Service Image (Optional)</Label>
+              <input
+                type="file"
+                ref={fileInputRef}
+                onChange={handleImageUpload}
+                accept="image/*"
+                className="hidden"
+              />
+              {serviceForm.image_url ? (
+                <div className="relative mt-2">
+                  <img 
+                    src={serviceForm.image_url} 
+                    alt="Service preview" 
+                    className="w-full h-32 object-cover rounded-lg"
+                  />
+                  <Button
+                    variant="destructive"
+                    size="icon"
+                    className="absolute top-2 right-2 h-6 w-6"
+                    onClick={handleRemoveImage}
+                  >
+                    <X className="h-4 w-4" />
+                  </Button>
+                </div>
+              ) : (
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="w-full mt-2"
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={uploadingImage}
+                >
+                  {uploadingImage ? (
+                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  ) : (
+                    <Upload className="h-4 w-4 mr-2" />
+                  )}
+                  {uploadingImage ? "Uploading..." : "Upload Image"}
+                </Button>
+              )}
             </div>
           </div>
           <DialogFooter>
