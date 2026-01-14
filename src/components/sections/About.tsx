@@ -72,17 +72,29 @@ const About = () => {
             </h2>
 
             <p className="text-muted-foreground text-lg mb-6 leading-relaxed">
-              Welcome to SC Signature Hair Salon, where every visit is an experience 
-              in luxury and transformation. With over 6 years of expertise in the 
-              beauty industry, we've dedicated ourselves to making each client feel 
-              confident and beautiful.
+              Welcome! I'm Sharon Ann Carr, a Paul Mitchell certified Hair Stylist 
+              and Cosmetologist proudly serving the Vestavia Hills community.
             </p>
 
-            <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
-              Our mission is simple: to provide exceptional hair and beauty services 
-              in a warm, welcoming environment. From precision cuts to stunning color 
-              transformations, we treat every client like family while delivering 
-              salon-quality results that exceed expectations.
+            <p className="text-muted-foreground text-lg mb-6 leading-relaxed">
+              For me, hair is personal. Every client who sits in my chair deserves 
+              my full attention, honest advice, and the kind of care you'd expect 
+              from a trusted friend. As a solo stylist, I've built my business on 
+              one simple promise: your appointment is about you—no rushing, no distractions.
+            </p>
+
+            <p className="text-muted-foreground text-lg mb-6 leading-relaxed">
+              Whether you're looking for a fresh cut, vibrant color, or a complete 
+              transformation, I take the time to listen and create a look that fits 
+              your lifestyle and makes you feel confident.
+            </p>
+
+            <p className="text-muted-foreground text-lg mb-6 leading-relaxed">
+              My studio is your escape. Come as you are, leave feeling like your best self.
+            </p>
+
+            <p className="text-muted-foreground text-lg mb-8 leading-relaxed font-medium">
+              Ready to book? I'd love to meet you.
             </p>
 
             {/* Quote */}
