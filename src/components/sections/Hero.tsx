@@ -20,7 +20,7 @@ const Hero = () => {
         <img 
           src={heroSalonImage} 
           alt="Luxurious SC Signature Hair Salon interior" 
-          className="w-full h-full object-cover blur-[2px] animate-ken-burns"
+          className="w-full h-full object-cover blur-[8px] animate-ken-burns"
         />
         {/* Gradient Overlay for text readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background/60" />
