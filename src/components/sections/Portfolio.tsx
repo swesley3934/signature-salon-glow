@@ -5,19 +5,14 @@ import { X, Loader2 } from "lucide-react";
 import { usePortfolioImages, PortfolioImage } from "@/hooks/usePortfolio";
 
 // Fallback images for when database is empty
-import portfolio1 from "@/assets/portfolio-1.jpg";
-import portfolio3 from "@/assets/portfolio-3.jpg";
-import portfolio4 from "@/assets/portfolio-4.jpg";
 import portfolioStyling1 from "@/assets/portfolio-styling-1.png";
+import portfolioStyling2 from "@/assets/portfolio-styling-2.png";
+import portfolioColor1 from "@/assets/portfolio-color-1.png";
 
 const fallbackImages = [
-  { id: "1", category: "Color", title: "Balayage Transformation", image_url: portfolio1 },
-  { id: "2", category: "Styling", title: "Bridal Glam", image_url: portfolioStyling1 },
-  { id: "3", category: "Cuts", title: "Platinum Bob", image_url: portfolio3 },
-  { id: "4", category: "Color", title: "Copper Red Glam", image_url: portfolio4 },
-  { id: "5", category: "Color", title: "Honey Highlights", image_url: portfolio1 },
-  { id: "6", category: "Cuts", title: "Sleek Modern Cut", image_url: portfolio3 },
-  { id: "7", category: "Color", title: "Vibrant Auburn", image_url: portfolio4 },
+  { id: "1", category: "Styling", title: "Bridal Glam", image_url: portfolioStyling1 },
+  { id: "2", category: "Color", title: "Golden Waves", image_url: portfolioColor1 },
+  { id: "3", category: "Styling", title: "Casual Chic", image_url: portfolioStyling2 },
 ];
 
 const Portfolio = () => {
