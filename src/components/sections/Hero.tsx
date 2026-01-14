@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
+import heroSalonImage from "@/assets/hero-salon.jpg";
 
 const BOOKING_URL = "https://sharoncarr.glossgenius.com/book";
 
@@ -14,8 +15,17 @@ const Hero = () => {
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Animated Gradient Background */}
-      <div className="absolute inset-0 animated-gradient" />
+      {/* Hero Background Image */}
+      <div className="absolute inset-0">
+        <img 
+          src={heroSalonImage} 
+          alt="Luxurious SC Signature Hair Salon interior" 
+          className="w-full h-full object-cover"
+        />
+        {/* Gradient Overlay for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background/80" />
+        <div className="absolute inset-0 bg-gradient-to-r from-pink-primary/20 to-purple-primary/20" />
+      </div>
 
       {/* Decorative Floating Shapes */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
