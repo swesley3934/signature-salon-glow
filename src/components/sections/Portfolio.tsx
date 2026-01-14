@@ -14,6 +14,8 @@ import portfolioCuts2 from "@/assets/portfolio-cuts-2.png";
 import portfolioCuts3 from "@/assets/portfolio-cuts-3.png";
 import portfolioCuts4 from "@/assets/portfolio-cuts-4.png";
 import portfolioCuts5 from "@/assets/portfolio-cuts-5.png";
+import portfolioLongHair from "@/assets/portfolio-long-hair.png";
+import portfolioKidsStyle from "@/assets/portfolio-kids-style.png";
 
 const fallbackImages = [
   { id: "1", category: "Styling", title: "Bridal Glam", image_url: portfolioStyling1 },
@@ -25,6 +27,8 @@ const fallbackImages = [
   { id: "7", category: "Cuts", title: "Textured Curls", image_url: portfolioCuts3 },
   { id: "8", category: "Cuts", title: "Clean Fade", image_url: portfolioCuts4 },
   { id: "9", category: "Cuts", title: "Classic Trim", image_url: portfolioCuts5 },
+  { id: "10", category: "Styling", title: "Sleek & Shiny", image_url: portfolioLongHair },
+  { id: "11", category: "Kids", title: "Fun Pigtails", image_url: portfolioKidsStyle },
 ];
 
 const Portfolio = () => {
