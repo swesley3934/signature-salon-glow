@@ -23,7 +23,7 @@ const About = () => {
       <div className="absolute bottom-0 left-0 w-80 h-80 rounded-full bg-purple-primary/5 blur-3xl" />
 
       <div className="container mx-auto px-4" ref={ref}>
-        <div className="grid lg:grid-cols-3 gap-12 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-3 gap-12 lg:gap-16 items-start">
           {/* Image Side */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
