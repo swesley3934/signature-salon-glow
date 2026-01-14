@@ -51,7 +51,7 @@ const Navbar = () => {
               e.preventDefault();
               scrollToSection("#home");
             }}
-            className="text-2xl md:text-3xl font-serif font-bold gradient-text cursor-pointer"
+            className="text-2xl md:text-3xl font-serif font-bold text-foreground cursor-pointer"
             whileHover={{ scale: 1.02 }}
           >
             SC Signature
