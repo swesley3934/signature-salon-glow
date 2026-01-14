@@ -23,8 +23,8 @@ const Hero = () => {
           className="w-full h-full object-cover"
         />
         {/* Gradient Overlay for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background/80" />
-        <div className="absolute inset-0 bg-gradient-to-r from-pink-primary/20 to-purple-primary/20" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background/60" />
+        <div className="absolute inset-0 bg-gradient-to-r from-pink-primary/5 to-purple-primary/5" />
       </div>
 
       {/* Decorative Floating Shapes */}
