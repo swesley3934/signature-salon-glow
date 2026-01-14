@@ -4,8 +4,8 @@ import { Award, Heart, Users, Clock } from "lucide-react";
 import stylistPortrait from "@/assets/stylist-portrait.png";
 
 const stats = [
-  { icon: Clock, value: "15+", label: "Years Experience" },
-  { icon: Users, value: "5000+", label: "Happy Clients" },
+  { icon: Clock, value: "6+", label: "Years Experience" },
+  { icon: Users, value: "100s", label: "Happy Clients" },
   { icon: Award, value: "100%", label: "Satisfaction" },
   { icon: Heart, value: "∞", label: "Passion" },
 ];
@@ -73,7 +73,7 @@ const About = () => {
 
             <p className="text-muted-foreground text-lg mb-6 leading-relaxed">
               Welcome to SC Signature Hair Salon, where every visit is an experience 
-              in luxury and transformation. With over 15 years of expertise in the 
+              in luxury and transformation. With over 6 years of expertise in the 
               beauty industry, we've dedicated ourselves to making each client feel 
               confident and beautiful.
             </p>
