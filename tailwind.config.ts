@@ -61,23 +61,28 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        gold: {
-          primary: "hsl(var(--gold-primary))",
-          light: "hsl(var(--gold-light))",
-          soft: "hsl(var(--gold-soft))",
-          glow: "hsl(var(--gold-glow))",
-          dark: "hsl(var(--gold-dark))",
+        pink: {
+          primary: "hsl(var(--pink-primary))",
+          light: "hsl(var(--pink-light))",
+          soft: "hsl(var(--pink-soft))",
+          glow: "hsl(var(--pink-glow))",
+          dark: "hsl(var(--pink-dark))",
         },
-        amber: {
-          primary: "hsl(var(--amber-primary))",
-          dark: "hsl(var(--amber-dark))",
-          light: "hsl(var(--amber-light))",
-          soft: "hsl(var(--amber-soft))",
+        purple: {
+          primary: "hsl(var(--purple-primary))",
+          dark: "hsl(var(--purple-dark))",
+          light: "hsl(var(--purple-light))",
+          soft: "hsl(var(--purple-soft))",
+        },
+        mauve: {
+          primary: "hsl(var(--mauve-primary))",
+          dark: "hsl(var(--mauve-dark))",
+          light: "hsl(var(--mauve-light))",
         },
         glass: {
           white: "hsl(var(--glass-white) / 0.25)",
-          gold: "hsl(var(--glass-gold) / 0.15)",
-          amber: "hsl(var(--glass-amber) / 0.15)",
+          pink: "hsl(var(--glass-pink) / 0.15)",
+          purple: "hsl(var(--glass-purple) / 0.15)",
         },
       },
       borderRadius: {
@@ -118,8 +123,8 @@ export default {
           "50%": { transform: "translateY(-20px) rotate(2deg)" },
         },
         "pulse-glow": {
-          "0%, 100%": { boxShadow: "0 0 20px rgba(212, 175, 55, 0.4)" },
-          "50%": { boxShadow: "0 0 40px rgba(212, 175, 55, 0.6), 0 0 60px rgba(180, 130, 50, 0.3)" },
+          "0%, 100%": { boxShadow: "0 0 20px rgba(220, 120, 170, 0.4)" },
+          "50%": { boxShadow: "0 0 40px rgba(220, 120, 170, 0.6), 0 0 60px rgba(150, 80, 180, 0.3)" },
         },
         shimmer: {
           "0%": { backgroundPosition: "-200% 0" },
