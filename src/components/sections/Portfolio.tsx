@@ -20,7 +20,7 @@ const fallbackImages = [
   { id: "2", category: "Color", title: "Golden Waves", image_url: portfolioColor1 },
   { id: "3", category: "Styling", title: "Casual Chic", image_url: portfolioStyling2 },
   { id: "4", category: "Styling", title: "Soft Curls", image_url: portfolioStyling3 },
-  { id: "5", category: "Cuts", title: "Platinum Pixie", image_url: portfolioCuts1 },
+  { id: "5", category: "Cuts", title: "Platinum Pixie", image_url: portfolioCuts1, objectPosition: "center 20%" },
   { id: "6", category: "Cuts", title: "Distinguished Gray", image_url: portfolioCuts2 },
   { id: "7", category: "Cuts", title: "Textured Curls", image_url: portfolioCuts3 },
   { id: "8", category: "Cuts", title: "Clean Fade", image_url: portfolioCuts4 },
@@ -128,6 +128,7 @@ const Portfolio = () => {
                     src={image.image_url} 
                     alt={image.title} 
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                    style={{ objectPosition: (image as any).objectPosition || "center" }}
                     loading="lazy" 
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-purple-dark/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
