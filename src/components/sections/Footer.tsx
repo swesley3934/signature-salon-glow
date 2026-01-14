@@ -130,11 +130,11 @@ const Footer = () => {
                 </li>
                 <li>
                   <a
-                    href="mailto:hello@scsignature.com"
+                    href="mailto:scsignaturestyles@gmail.com"
                     className="flex items-center gap-3 text-sm text-purple-dark/70 hover:text-pink-dark transition-colors"
                   >
                     <Mail className="w-4 h-4 text-pink-dark" />
-                    hello@scsignature.com
+                    scsignaturestyles@gmail.com
                   </a>
                 </li>
               </ul>
