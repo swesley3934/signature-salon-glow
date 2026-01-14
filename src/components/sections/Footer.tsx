@@ -35,10 +35,10 @@ const Footer = () => {
       <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-background to-transparent" />
       
       {/* Main Footer */}
-      <div className="bg-gradient-to-b from-purple-dark/95 to-purple-dark pt-20 pb-8">
+      <div className="bg-gradient-to-b from-purple-soft to-purple-soft/90 pt-20 pb-8">
         {/* Background Decorations */}
-        <div className="absolute top-0 left-0 w-64 h-64 rounded-full bg-pink-primary/10 blur-3xl" />
-        <div className="absolute bottom-0 right-0 w-80 h-80 rounded-full bg-purple-light/10 blur-3xl" />
+        <div className="absolute top-0 left-0 w-64 h-64 rounded-full bg-pink-soft/30 blur-3xl" />
+        <div className="absolute bottom-0 right-0 w-80 h-80 rounded-full bg-purple-light/20 blur-3xl" />
 
         <div className="container mx-auto px-4 relative">
           {/* Top Section */}
@@ -51,11 +51,11 @@ const Footer = () => {
                   e.preventDefault();
                   scrollToSection("#home");
                 }}
-                className="text-3xl font-serif font-bold text-primary-foreground mb-4 inline-block"
+                className="text-3xl font-serif font-bold text-purple-dark mb-4 inline-block"
               >
                 SC Signature
               </motion.a>
-              <p className="text-primary-foreground/70 text-sm leading-relaxed mb-6">
+              <p className="text-purple-dark/70 text-sm leading-relaxed mb-6">
                 Where beauty meets artistry. Your trusted destination for premium hair and beauty services.
               </p>
               <Button
@@ -68,7 +68,7 @@ const Footer = () => {
 
             {/* Quick Links */}
             <div>
-              <h4 className="font-semibold text-primary-foreground mb-4">Quick Links</h4>
+              <h4 className="font-semibold text-purple-dark mb-4">Quick Links</h4>
               <ul className="space-y-2">
                 {footerLinks.quickLinks.map((link) => (
                   <li key={link.name}>
@@ -78,7 +78,7 @@ const Footer = () => {
                         e.preventDefault();
                         scrollToSection(link.href);
                       }}
-                      className="text-primary-foreground/70 hover:text-pink-light transition-colors text-sm"
+                      className="text-purple-dark/70 hover:text-pink-dark transition-colors text-sm"
                     >
                       {link.name}
                     </a>
@@ -89,7 +89,7 @@ const Footer = () => {
 
             {/* Services */}
             <div>
-              <h4 className="font-semibold text-primary-foreground mb-4">Our Services</h4>
+              <h4 className="font-semibold text-purple-dark mb-4">Our Services</h4>
               <ul className="space-y-2">
                 {footerLinks.services.map((link) => (
                   <li key={link.name}>
@@ -99,7 +99,7 @@ const Footer = () => {
                         e.preventDefault();
                         scrollToSection(link.href);
                       }}
-                      className="text-primary-foreground/70 hover:text-pink-light transition-colors text-sm"
+                      className="text-purple-dark/70 hover:text-pink-dark transition-colors text-sm"
                     >
                       {link.name}
                     </a>
@@ -110,11 +110,11 @@ const Footer = () => {
 
             {/* Contact */}
             <div>
-              <h4 className="font-semibold text-primary-foreground mb-4">Contact Us</h4>
+              <h4 className="font-semibold text-purple-dark mb-4">Contact Us</h4>
               <ul className="space-y-3">
                 <li className="flex items-start gap-3 text-sm">
-                  <MapPin className="w-4 h-4 text-pink-light flex-shrink-0 mt-0.5" />
-                  <span className="text-primary-foreground/70">
+                  <MapPin className="w-4 h-4 text-pink-dark flex-shrink-0 mt-0.5" />
+                  <span className="text-purple-dark/70">
                     123 Beauty Lane, Suite 100<br />
                     Your City, State 12345
                   </span>
@@ -122,18 +122,18 @@ const Footer = () => {
                 <li>
                   <a
                     href="tel:+15551234567"
-                    className="flex items-center gap-3 text-sm text-primary-foreground/70 hover:text-pink-light transition-colors"
+                    className="flex items-center gap-3 text-sm text-purple-dark/70 hover:text-pink-dark transition-colors"
                   >
-                    <Phone className="w-4 h-4 text-pink-light" />
+                    <Phone className="w-4 h-4 text-pink-dark" />
                     (555) 123-4567
                   </a>
                 </li>
                 <li>
                   <a
                     href="mailto:hello@scsignature.com"
-                    className="flex items-center gap-3 text-sm text-primary-foreground/70 hover:text-pink-light transition-colors"
+                    className="flex items-center gap-3 text-sm text-purple-dark/70 hover:text-pink-dark transition-colors"
                   >
-                    <Mail className="w-4 h-4 text-pink-light" />
+                    <Mail className="w-4 h-4 text-pink-dark" />
                     hello@scsignature.com
                   </a>
                 </li>
@@ -143,14 +143,14 @@ const Footer = () => {
               <div className="flex gap-3 mt-6">
                 <a
                   href="#"
-                  className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-primary-foreground hover:bg-pink-primary hover:text-primary-foreground transition-all"
+                  className="w-10 h-10 rounded-full bg-purple-primary/10 flex items-center justify-center text-purple-dark hover:bg-pink-primary hover:text-white transition-all"
                   aria-label="Instagram"
                 >
                   <Instagram size={18} />
                 </a>
                 <a
                   href="#"
-                  className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-primary-foreground hover:bg-pink-primary hover:text-primary-foreground transition-all"
+                  className="w-10 h-10 rounded-full bg-purple-primary/10 flex items-center justify-center text-purple-dark hover:bg-pink-primary hover:text-white transition-all"
                   aria-label="Facebook"
                 >
                   <Facebook size={18} />
@@ -160,14 +160,14 @@ const Footer = () => {
           </div>
 
           {/* Divider */}
-          <div className="h-px bg-white/10 mb-8" />
+          <div className="h-px bg-purple-primary/20 mb-8" />
 
           {/* Bottom Section */}
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-primary-foreground/50 text-sm">
+            <p className="text-purple-dark/50 text-sm">
               © {new Date().getFullYear()} SC Signature Hair Salon. All rights reserved.
             </p>
-            <p className="text-primary-foreground/50 text-sm flex items-center gap-1">
+            <p className="text-purple-dark/50 text-sm flex items-center gap-1">
               Made with <Heart className="w-4 h-4 text-pink-primary fill-pink-primary" /> for beauty
             </p>
           </div>
