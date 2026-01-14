@@ -142,14 +142,18 @@ const Footer = () => {
               {/* Social Links */}
               <div className="flex gap-3 mt-6">
                 <a
-                  href="#"
+                  href="https://www.instagram.com/sharoncarr5488/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-10 h-10 rounded-full bg-purple-primary/10 flex items-center justify-center text-purple-dark hover:bg-pink-primary hover:text-white transition-all"
                   aria-label="Instagram"
                 >
                   <Instagram size={18} />
                 </a>
                 <a
-                  href="#"
+                  href="https://www.facebook.com/profile.php?id=61563807729360"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-10 h-10 rounded-full bg-purple-primary/10 flex items-center justify-center text-purple-dark hover:bg-pink-primary hover:text-white transition-all"
                   aria-label="Facebook"
                 >
