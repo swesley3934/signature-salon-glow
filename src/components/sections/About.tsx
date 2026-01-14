@@ -29,7 +29,7 @@ const About = () => {
             initial={{ opacity: 0, x: -50 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8 }}
-            className="relative"
+            className="relative mt-20 lg:mt-24"
           >
             <div className="relative">
               {/* Main Image */}
