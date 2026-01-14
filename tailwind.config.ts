@@ -135,8 +135,8 @@ export default {
           "100%": { transform: "translateX(0)", opacity: "1" },
         },
         "ken-burns": {
-          "0%": { transform: "scale(1)" },
-          "100%": { transform: "scale(1.1)" },
+          "0%, 100%": { transform: "scale(1)" },
+          "50%": { transform: "scale(1.08)" },
         },
       },
       animation: {
@@ -149,7 +149,7 @@ export default {
         "pulse-glow": "pulse-glow 3s ease-in-out infinite",
         shimmer: "shimmer 2s linear infinite",
         "slide-in-right": "slide-in-right 0.3s ease-out",
-        "ken-burns": "ken-burns 20s ease-out forwards",
+        "ken-burns": "ken-burns 15s ease-in-out infinite",
       },
       backgroundImage: {
         "gradient-main": "var(--gradient-main)",
