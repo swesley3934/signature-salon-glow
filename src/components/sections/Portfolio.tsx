@@ -20,7 +20,7 @@ const fallbackImages = [
   { id: "2", category: "Color", title: "Golden Waves", image_url: portfolioColor1 },
   { id: "3", category: "Styling", title: "Casual Chic", image_url: portfolioStyling2 },
   { id: "4", category: "Styling", title: "Soft Curls", image_url: portfolioStyling3 },
-  { id: "5", category: "Cuts", title: "Platinum Pixie", image_url: portfolioCuts1, objectPosition: "center 20%" },
+  { id: "5", category: "Cuts", title: "Platinum Pixie", image_url: portfolioCuts1 },
   { id: "6", category: "Cuts", title: "Distinguished Gray", image_url: portfolioCuts2 },
   { id: "7", category: "Cuts", title: "Textured Curls", image_url: portfolioCuts3 },
   { id: "8", category: "Cuts", title: "Clean Fade", image_url: portfolioCuts4 },
