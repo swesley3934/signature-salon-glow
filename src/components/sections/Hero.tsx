@@ -1,10 +1,8 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
-import heroSalonImage from "@/assets/hero-salon.jpg";
 
 const BOOKING_URL = "https://sharoncarr.glossgenius.com/book";
-
 const Hero = () => {
   const scrollToServices = () => {
     document.querySelector("#services")?.scrollIntoView({ behavior: "smooth" });
@@ -15,17 +13,9 @@ const Hero = () => {
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Hero Background Image with Ken Burns effect */}
-      <div className="absolute inset-0 overflow-hidden">
-        <img 
-          src={heroSalonImage} 
-          alt="Luxurious SC Signature Hair Salon interior" 
-          className="w-full h-full object-cover blur-[14px] animate-ken-burns"
-        />
-        {/* Gradient Overlay for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background/60" />
-        <div className="absolute inset-0 bg-gradient-to-r from-pink-primary/5 to-purple-primary/5" />
-      </div>
+      {/* Gradient Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted" />
+      <div className="absolute inset-0 bg-gradient-to-r from-pink-primary/10 to-purple-primary/10" />
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 text-center">
