@@ -82,6 +82,33 @@ export function useUpdatePortfolioImage() {
   });
 }
 
+export function useReorderPortfolioImages() {
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
+
+  return useMutation({
+    mutationFn: async (updates: { id: string; display_order: number }[]) => {
+      const promises = updates.map(({ id, display_order }) =>
+        supabase
+          .from("portfolio_images")
+          .update({ display_order })
+          .eq("id", id)
+      );
+      
+      const results = await Promise.all(promises);
+      const error = results.find((r) => r.error)?.error;
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["portfolio_images"] });
+      toast({ title: "Order updated" });
+    },
+    onError: (error) => {
+      toast({ title: "Error reordering", description: error.message, variant: "destructive" });
+    },
+  });
+}
+
 export function useDeletePortfolioImage() {
   const queryClient = useQueryClient();
   const { toast } = useToast();
