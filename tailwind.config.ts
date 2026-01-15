@@ -61,28 +61,27 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        pink: {
-          primary: "hsl(var(--pink-primary))",
-          light: "hsl(var(--pink-light))",
-          soft: "hsl(var(--pink-soft))",
-          glow: "hsl(var(--pink-glow))",
-          dark: "hsl(var(--pink-dark))",
+        // New color palette
+        dustyrose: {
+          DEFAULT: "hsl(var(--dusty-rose))",
+          dark: "hsl(var(--dusty-rose-dark))",
+          light: "hsl(var(--dusty-rose-light))",
         },
-        purple: {
-          primary: "hsl(var(--purple-primary))",
-          dark: "hsl(var(--purple-dark))",
-          light: "hsl(var(--purple-light))",
-          soft: "hsl(var(--purple-soft))",
+        sage: {
+          DEFAULT: "hsl(var(--sage-green))",
+          dark: "hsl(var(--sage-green-dark))",
+          light: "hsl(var(--sage-green-light))",
         },
-        mauve: {
-          primary: "hsl(var(--mauve-primary))",
-          dark: "hsl(var(--mauve-dark))",
-          light: "hsl(var(--mauve-light))",
+        blush: {
+          DEFAULT: "hsl(var(--blush-pink))",
+          light: "hsl(var(--blush-pink-light))",
         },
+        offwhite: "hsl(var(--off-white))",
+        darkgray: "hsl(var(--dark-gray))",
         glass: {
           white: "hsl(var(--glass-white) / 0.25)",
-          pink: "hsl(var(--glass-pink) / 0.15)",
-          purple: "hsl(var(--glass-purple) / 0.15)",
+          primary: "hsl(var(--glass-primary) / 0.15)",
+          secondary: "hsl(var(--glass-secondary) / 0.15)",
         },
       },
       borderRadius: {
@@ -123,8 +122,8 @@ export default {
           "50%": { transform: "translateY(-20px) rotate(2deg)" },
         },
         "pulse-glow": {
-          "0%, 100%": { boxShadow: "0 0 20px rgba(220, 120, 170, 0.4)" },
-          "50%": { boxShadow: "0 0 40px rgba(220, 120, 170, 0.6), 0 0 60px rgba(150, 80, 180, 0.3)" },
+          "0%, 100%": { boxShadow: "0 0 20px rgba(201, 169, 166, 0.4)" },
+          "50%": { boxShadow: "0 0 40px rgba(201, 169, 166, 0.6), 0 0 60px rgba(139, 157, 131, 0.3)" },
         },
         shimmer: {
           "0%": { backgroundPosition: "-200% 0" },
