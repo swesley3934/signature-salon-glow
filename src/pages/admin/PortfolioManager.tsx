@@ -1,6 +1,23 @@
 import { useState, useCallback } from "react";
 import { motion } from "framer-motion";
-import { Plus, Pencil, Trash2, Loader2, Upload, Star, X } from "lucide-react";
+import { Plus, Pencil, Trash2, Loader2, Upload, Star, X, GripVertical } from "lucide-react";
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  useSortable,
+  rectSortingStrategy,
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -35,6 +52,7 @@ import {
   useCreatePortfolioImage,
   useUpdatePortfolioImage,
   useDeletePortfolioImage,
+  useReorderPortfolioImages,
   uploadPortfolioImage,
   deletePortfolioImageFile,
   PortfolioImage,
@@ -43,6 +61,80 @@ import { cn } from "@/lib/utils";
 
 const CATEGORIES = ["Color", "Cut", "Style", "Treatment"];
 
+interface SortableImageCardProps {
+  image: PortfolioImage;
+  onEdit: (image: PortfolioImage) => void;
+  onDelete: (image: PortfolioImage) => void;
+}
+
+function SortableImageCard({ image, onEdit, onDelete }: SortableImageCardProps) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: image.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
+  return (
+    <div ref={setNodeRef} style={style} className={cn(isDragging && "z-50")}>
+      <Card className={cn(
+        "glass-card border-none overflow-hidden group",
+        isDragging && "opacity-50 ring-2 ring-primary"
+      )}>
+        <div className="relative aspect-square">
+          <img
+            src={image.image_url}
+            alt={image.title}
+            className="w-full h-full object-cover"
+          />
+          {image.is_featured && (
+            <Badge className="absolute top-2 left-2 bg-gradient-main">
+              <Star className="h-3 w-3 mr-1" />
+              Featured
+            </Badge>
+          )}
+          <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+            <Button
+              size="icon"
+              variant="secondary"
+              className="cursor-grab active:cursor-grabbing"
+              {...attributes}
+              {...listeners}
+            >
+              <GripVertical className="h-4 w-4" />
+            </Button>
+            <Button
+              size="icon"
+              variant="secondary"
+              onClick={() => onEdit(image)}
+            >
+              <Pencil className="h-4 w-4" />
+            </Button>
+            <Button
+              size="icon"
+              variant="destructive"
+              onClick={() => onDelete(image)}
+            >
+              <Trash2 className="h-4 w-4" />
+            </Button>
+          </div>
+        </div>
+        <CardContent className="p-3">
+          <h3 className="font-medium truncate">{image.title}</h3>
+          <p className="text-sm text-muted-foreground">{image.category}</p>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
 export default function PortfolioManager() {
   const [activeFilter, setActiveFilter] = useState("All");
   const { data: images, isLoading } = usePortfolioImages(activeFilter === "All" ? undefined : activeFilter);
@@ -50,6 +142,7 @@ export default function PortfolioManager() {
   const createImage = useCreatePortfolioImage();
   const updateImage = useUpdatePortfolioImage();
   const deleteImage = useDeletePortfolioImage();
+  const reorderImages = useReorderPortfolioImages();
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
@@ -65,6 +158,34 @@ export default function PortfolioManager() {
   });
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: { distance: 8 },
+    }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
+  const handleDragEnd = async (event: DragEndEvent) => {
+    const { active, over } = event;
+    
+    if (!over || active.id === over.id || !images) return;
+
+    const oldIndex = images.findIndex((img) => img.id === active.id);
+    const newIndex = images.findIndex((img) => img.id === over.id);
+
+    if (oldIndex === -1 || newIndex === -1) return;
+
+    const reordered = arrayMove(images, oldIndex, newIndex);
+    const updates = reordered.map((img, index) => ({
+      id: img.id,
+      display_order: index,
+    }));
+
+    await reorderImages.mutateAsync(updates);
+  };
 
   const openDialog = (image?: PortfolioImage) => {
     if (image) {
@@ -135,6 +256,11 @@ export default function PortfolioManager() {
     setDeletingImage(null);
   };
 
+  const openDeleteDialog = (image: PortfolioImage) => {
+    setDeletingImage(image);
+    setDeleteDialogOpen(true);
+  };
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -152,7 +278,7 @@ export default function PortfolioManager() {
       >
         <div>
           <h1 className="text-3xl font-serif font-bold gradient-text">Portfolio</h1>
-          <p className="text-muted-foreground">Manage your gallery images</p>
+          <p className="text-muted-foreground">Manage your gallery images • Drag to reorder</p>
         </div>
         <Button onClick={() => openDialog()} className="glow-button bg-gradient-main">
           <Plus className="h-4 w-4 mr-2" />
@@ -194,55 +320,27 @@ export default function PortfolioManager() {
           </CardContent>
         </Card>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {images.map((image, index) => (
-            <motion.div
-              key={image.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.05 }}
-            >
-              <Card className="glass-card border-none overflow-hidden group">
-                <div className="relative aspect-square">
-                  <img
-                    src={image.image_url}
-                    alt={image.title}
-                    className="w-full h-full object-cover"
-                  />
-                  {image.is_featured && (
-                    <Badge className="absolute top-2 left-2 bg-gradient-main">
-                      <Star className="h-3 w-3 mr-1" />
-                      Featured
-                    </Badge>
-                  )}
-                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-                    <Button
-                      size="icon"
-                      variant="secondary"
-                      onClick={() => openDialog(image)}
-                    >
-                      <Pencil className="h-4 w-4" />
-                    </Button>
-                    <Button
-                      size="icon"
-                      variant="destructive"
-                      onClick={() => {
-                        setDeletingImage(image);
-                        setDeleteDialogOpen(true);
-                      }}
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </div>
-                <CardContent className="p-3">
-                  <h3 className="font-medium truncate">{image.title}</h3>
-                  <p className="text-sm text-muted-foreground">{image.category}</p>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragEnd={handleDragEnd}
+        >
+          <SortableContext
+            items={images.map((img) => img.id)}
+            strategy={rectSortingStrategy}
+          >
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              {images.map((image) => (
+                <SortableImageCard
+                  key={image.id}
+                  image={image}
+                  onEdit={openDialog}
+                  onDelete={openDeleteDialog}
+                />
+              ))}
+            </div>
+          </SortableContext>
+        </DndContext>
       )}
 
       {/* Add/Edit Dialog */}
