@@ -4,7 +4,7 @@ import { useInView } from "react-intersection-observer";
 import { X, Loader2 } from "lucide-react";
 import { usePortfolioImages, PortfolioImage } from "@/hooks/usePortfolio";
 
-// Fallback images for when database is empty
+// Static images that are always shown (never deleted unless explicitly requested)
 import portfolioStyling1 from "@/assets/portfolio-styling-1.png";
 import portfolioStyling2 from "@/assets/portfolio-styling-2.png";
 import portfolioStyling3 from "@/assets/portfolio-styling-3.png";
@@ -17,18 +17,19 @@ import portfolioCuts5 from "@/assets/portfolio-cuts-5.png";
 import portfolioLongHair from "@/assets/portfolio-long-hair.png";
 import portfolioKidsStyle from "@/assets/portfolio-kids-style.png";
 
-const fallbackImages = [
-  { id: "1", category: "Styling", title: "Bridal Glam", image_url: portfolioStyling1 },
-  { id: "2", category: "Color", title: "Golden Waves", image_url: portfolioColor1 },
-  { id: "3", category: "Styling", title: "Casual Chic", image_url: portfolioStyling2 },
-  { id: "4", category: "Styling", title: "Soft Curls", image_url: portfolioStyling3 },
-  { id: "5", category: "Cuts", title: "Platinum Pixie", image_url: portfolioCuts1 },
-  { id: "6", category: "Cuts", title: "Distinguished Gray", image_url: portfolioCuts2 },
-  { id: "7", category: "Cuts", title: "Textured Curls", image_url: portfolioCuts3 },
-  { id: "8", category: "Cuts", title: "Clean Fade", image_url: portfolioCuts4 },
-  { id: "9", category: "Cuts", title: "Classic Trim", image_url: portfolioCuts5 },
-  { id: "10", category: "Styling", title: "Sleek & Shiny", image_url: portfolioLongHair },
-  { id: "11", category: "Kids", title: "Fun Pigtails", image_url: portfolioKidsStyle },
+// Static images that are always displayed (can only be removed by editing code)
+const staticImages = [
+  { id: "static-1", category: "Styling", title: "Bridal Glam", image_url: portfolioStyling1 },
+  { id: "static-2", category: "Color", title: "Golden Waves", image_url: portfolioColor1 },
+  { id: "static-3", category: "Styling", title: "Casual Chic", image_url: portfolioStyling2 },
+  { id: "static-4", category: "Styling", title: "Soft Curls", image_url: portfolioStyling3 },
+  { id: "static-5", category: "Cuts", title: "Platinum Pixie", image_url: portfolioCuts1 },
+  { id: "static-6", category: "Cuts", title: "Distinguished Gray", image_url: portfolioCuts2 },
+  { id: "static-7", category: "Cuts", title: "Textured Curls", image_url: portfolioCuts3 },
+  { id: "static-8", category: "Cuts", title: "Clean Fade", image_url: portfolioCuts4 },
+  { id: "static-9", category: "Cuts", title: "Classic Trim", image_url: portfolioCuts5 },
+  { id: "static-10", category: "Styling", title: "Sleek & Shiny", image_url: portfolioLongHair },
+  { id: "static-11", category: "Kids", title: "Fun Pigtails", image_url: portfolioKidsStyle },
 ];
 
 const Portfolio = () => {
@@ -38,8 +39,10 @@ const Portfolio = () => {
 
   const { data: portfolioImages = [], isLoading } = usePortfolioImages();
 
-  // Use database images if available, otherwise fallback
-  const images = portfolioImages.length > 0 ? portfolioImages : fallbackImages;
+  // Combine database images with static images (database images shown first)
+  const images = useMemo(() => {
+    return [...portfolioImages, ...staticImages];
+  }, [portfolioImages]);
 
   // Get unique categories from the images
   const categories = useMemo(() => {
