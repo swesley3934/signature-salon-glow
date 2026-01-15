@@ -1,8 +1,9 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { X, Loader2 } from "lucide-react";
+import { X, Loader2, ChevronLeft, ChevronRight } from "lucide-react";
 import { usePortfolioImages, PortfolioImage } from "@/hooks/usePortfolio";
+import useEmblaCarousel from "embla-carousel-react";
 
 // Static images that are always shown (never deleted unless explicitly requested)
 import portfolioStyling1 from "@/assets/portfolio-styling-1.png";
@@ -37,6 +38,12 @@ const Portfolio = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
+  const [emblaRef, emblaApi] = useEmblaCarousel({ 
+    loop: true, 
+    align: "start",
+    slidesToScroll: 1,
+  });
+
   const { data: portfolioImages = [], isLoading } = usePortfolioImages();
 
   // Combine database images with static images (database images shown first)
@@ -57,6 +64,27 @@ const Portfolio = () => {
   const selectedImageData = selectedImage 
     ? images.find((img) => img.id === selectedImage) 
     : null;
+
+  const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
+  const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
+
+  // Auto-scroll every 3 seconds
+  useEffect(() => {
+    if (!emblaApi) return;
+
+    const autoScroll = setInterval(() => {
+      emblaApi.scrollNext();
+    }, 3000);
+
+    return () => clearInterval(autoScroll);
+  }, [emblaApi]);
+
+  // Reinitialize carousel when filtered images change
+  useEffect(() => {
+    if (emblaApi) {
+      emblaApi.reInit();
+    }
+  }, [emblaApi, filteredImages]);
 
   if (isLoading) {
     return (
@@ -115,37 +143,54 @@ const Portfolio = () => {
           initial={{ opacity: 0 }} 
           animate={inView ? { opacity: 1 } : {}} 
           transition={{ duration: 0.6, delay: 0.3 }} 
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
+          className="relative"
         >
-          {filteredImages.map((image, index) => (
-            <motion.div 
-              key={image.id} 
-              layout 
-              initial={{ opacity: 0, scale: 0.9 }} 
-              animate={{ opacity: 1, scale: 1 }} 
-              transition={{ duration: 0.4, delay: index * 0.05 }} 
-              className="group cursor-pointer" 
-              onClick={() => setSelectedImage(image.id)}
-            >
-              <div className="glass-card p-2 overflow-hidden h-full">
-                <div className="relative rounded-xl overflow-hidden aspect-[3/4]">
-                  <img 
-                    src={image.image_url} 
-                    alt={image.title} 
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
-                    style={{ objectPosition: (image as any).objectPosition || "center" }}
-                    loading="lazy" 
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-purple-dark/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
-                    <div className="p-4 w-full">
-                      <span className="text-xs text-pink-light uppercase tracking-wider">{image.category}</span>
-                      <h3 className="text-primary-foreground font-semibold">{image.title}</h3>
+          {/* Navigation Arrows */}
+          <button
+            onClick={scrollPrev}
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-12 h-12 rounded-full bg-white/80 backdrop-blur-sm shadow-lg flex items-center justify-center text-foreground hover:bg-white transition-colors"
+            aria-label="Previous slide"
+          >
+            <ChevronLeft size={24} />
+          </button>
+          <button
+            onClick={scrollNext}
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-12 h-12 rounded-full bg-white/80 backdrop-blur-sm shadow-lg flex items-center justify-center text-foreground hover:bg-white transition-colors"
+            aria-label="Next slide"
+          >
+            <ChevronRight size={24} />
+          </button>
+
+          {/* Carousel */}
+          <div className="overflow-hidden mx-8" ref={emblaRef}>
+            <div className="flex gap-4">
+              {filteredImages.map((image) => (
+                <div 
+                  key={image.id} 
+                  className="flex-none w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 group cursor-pointer" 
+                  onClick={() => setSelectedImage(image.id)}
+                >
+                  <div className="glass-card p-2 overflow-hidden h-full">
+                    <div className="relative rounded-xl overflow-hidden aspect-[3/4]">
+                      <img 
+                        src={image.image_url} 
+                        alt={image.title} 
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                        style={{ objectPosition: (image as any).objectPosition || "center" }}
+                        loading="lazy" 
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-purple-dark/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                        <div className="p-4 w-full">
+                          <span className="text-xs text-pink-light uppercase tracking-wider">{image.category}</span>
+                          <h3 className="text-primary-foreground font-semibold">{image.title}</h3>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              ))}
+            </div>
+          </div>
         </motion.div>
       </div>
 
