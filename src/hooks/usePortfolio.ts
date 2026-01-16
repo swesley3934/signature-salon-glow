@@ -10,6 +10,7 @@ export interface PortfolioImage {
   before_image_url: string | null;
   is_featured: boolean;
   display_order: number;
+  object_position?: string;
   created_at: string;
   updated_at: string;
 }

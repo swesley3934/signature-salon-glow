@@ -143,8 +143,9 @@ export default function ServicesManager() {
 
       setServiceForm(prev => ({ ...prev, image_url: publicUrl }));
       toast({ title: "Image uploaded successfully" });
-    } catch (error: any) {
-      toast({ title: "Error uploading image", description: error.message, variant: "destructive" });
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : "An error occurred";
+      toast({ title: "Error uploading image", description: errorMessage, variant: "destructive" });
     } finally {
       setUploadingImage(false);
     }

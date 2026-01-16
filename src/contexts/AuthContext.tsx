@@ -19,48 +19,55 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
 
+  // Extract admin role check into reusable function
+  const checkAdminRole = async (userId: string): Promise<boolean> => {
+    try {
+      const { data, error } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", userId)
+        .eq("role", "admin")
+        .maybeSingle();
+
+      if (error) {
+        console.error("Error checking admin role:", error);
+        return false;
+      }
+
+      return !!data;
+    } catch (error) {
+      console.error("Exception checking admin role:", error);
+      return false;
+    }
+  };
+
   useEffect(() => {
     // Set up auth state listener FIRST
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
         setSession(session);
         setUser(session?.user ?? null);
-        
+
         if (session?.user) {
-          // Check admin role - use setTimeout to avoid race condition
-          setTimeout(async () => {
-            const { data } = await supabase
-              .from("user_roles")
-              .select("role")
-              .eq("user_id", session.user.id)
-              .eq("role", "admin")
-              .maybeSingle();
-            setIsAdmin(!!data);
-          }, 0);
+          const isUserAdmin = await checkAdminRole(session.user.id);
+          setIsAdmin(isUserAdmin);
         } else {
           setIsAdmin(false);
         }
-        
+
         setIsLoading(false);
       }
     );
 
     // THEN check for existing session
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
-      
+
       if (session?.user) {
-        supabase
-          .from("user_roles")
-          .select("role")
-          .eq("user_id", session.user.id)
-          .eq("role", "admin")
-          .maybeSingle()
-          .then(({ data }) => {
-            setIsAdmin(!!data);
-            setIsLoading(false);
-          });
+        const isUserAdmin = await checkAdminRole(session.user.id);
+        setIsAdmin(isUserAdmin);
+        setIsLoading(false);
       } else {
         setIsLoading(false);
       }
