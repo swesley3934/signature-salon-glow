@@ -4,8 +4,8 @@ import { Award, Heart, Users, Clock } from "lucide-react";
 import stylistPortrait from "@/assets/stylist-portrait.png";
 
 const stats = [
-  { icon: Clock, value: "6+", label: "Years Experience" },
-  { icon: Users, value: "100s", label: "Happy Clients" },
+  { icon: Clock, value: "20+", label: "Years Experience" },
+  { icon: Users, value: "1000s", label: "Happy Clients" },
   { icon: Award, value: "100%", label: "Satisfaction" },
   { icon: Heart, value: "∞", label: "Passion" },
 ];
