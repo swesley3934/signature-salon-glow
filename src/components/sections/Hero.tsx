@@ -42,7 +42,7 @@ const Hero = () => {
               transition={{ delay: 0.2, duration: 0.6 }}
               className="text-sm md:text-base text-white mb-4 tracking-widest uppercase drop-shadow-lg"
             >
-              Premium Hair & Beauty Services
+              Premium Hair & Beauty Services in Vestavia Hills
             </motion.p>
 
             {/* Main Heading */}
