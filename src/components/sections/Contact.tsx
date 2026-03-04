@@ -125,7 +125,7 @@ const Contact = () => {
             <div className="relative glass-card p-2 overflow-hidden">
               <div className="aspect-[21/9] rounded-xl overflow-hidden ring-1 ring-white/20">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3012.594538585831!2d-86.79352442484942!3d33.4486465493616!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88891904bed4f85b%3A0x3e5f38a9a4912375!2s624%20Montgomery%20Hwy%20suite%2010%2C%20Vestavia%20Hills%2C%20AL%2035216!5e1!3m2!1sen!2sus!4v1768350331846!5m2!1sen!2sus"
+                  src="https://storage.googleapis.com/maps-solutions-tufi51rwlq/locator-plus/x6yc/locator-plus.html"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
