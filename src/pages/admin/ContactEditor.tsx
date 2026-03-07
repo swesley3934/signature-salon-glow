@@ -166,7 +166,7 @@ export default function ContactEditor() {
                   type="email"
                   value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  placeholder="e.g., hello@scsignature.com"
+                  placeholder="e.g., hello@scsignaturehairsalon.com"
                 />
               </div>
             </CardContent>
